@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="change">Change</string>
+    <string name="sort">Sort</string>
+    <string name="show">Show</string>
+    <string name="image">image</string>
+    <string name="danka_djordjevic">Danka Djordjevic</string>
+    <string name="danka_djordjevic_dev_telnet_rs">danka.djordjevic@dev.telnet.rs</string>
+    <string name="all_notes">All notes</string>
+    <string name="shared_notes">Shared notes</string>
+    <string name="categories">Categories</string>
+    <string name="open_drawer">Open navigation drawer</string>
+    <string name="close_drawer">Close navigation drawer</string>
+
+</resources>
