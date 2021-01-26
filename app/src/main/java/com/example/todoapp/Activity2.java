@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,7 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.HashSet;
 
-public class Activity2 extends AppCompatActivity{
+public class Activity2 extends AppCompatActivity {
 
     int noteId;
     Toolbar toolbar2;
@@ -33,20 +34,19 @@ public class Activity2 extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
         EditText editText = (EditText) findViewById(R.id.edittext_id);
 
         Intent intent = getIntent();
         noteId = intent.getIntExtra("noteId", -1);
 
-        if (noteId != -1){
+        if (noteId != -1) {
 
             editText.setText(MainActivity.notes.get(noteId));
 
-        }else {
+        } else {
 
             MainActivity.notes.add("");
-            noteId = MainActivity.notes.size() -1;
+            noteId = MainActivity.notes.size() - 1;
             MainActivity.arrayAdapter.notifyDataSetChanged();
 
         }
@@ -54,7 +54,6 @@ public class Activity2 extends AppCompatActivity{
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
 
 
             }
@@ -66,7 +65,7 @@ public class Activity2 extends AppCompatActivity{
                 MainActivity.notes.set(noteId, String.valueOf(charSequence));
                 MainActivity.arrayAdapter.notifyDataSetChanged();
 
-                SharedPreferences  sharedPreferences = getApplicationContext().getSharedPreferences("com.example.todoapp", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.example.todoapp", Context.MODE_PRIVATE);
 
                 HashSet<String> set = new HashSet<>(MainActivity.notes);
 
@@ -81,21 +80,36 @@ public class Activity2 extends AppCompatActivity{
         });
 
 
-
-
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+
         int id = item.getItemId();
-        if (id==R.id.trash_id){
-            Toast.makeText(getApplicationContext(),"Trash",Toast.LENGTH_SHORT).show();
-        }else if(id==R.id.check_id){
-            Toast.makeText(getApplicationContext(),"Save",Toast.LENGTH_SHORT).show();
-        }else if (id==android.R.id.home){
+        if (id == R.id.trash_id) {
+            Toast.makeText(getApplicationContext(), "Trash", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.check_id) {
+            Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
+            goToMain();
+        } else if (id == android.R.id.home) {
             finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.my_menu, menu);
+        return true;
+    }
+
+    private void goToMain() {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
